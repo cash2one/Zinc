@@ -5,12 +5,172 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="{% static 'Portal/bootstrap/dist/css/bootstrap.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'Portal/bootstrap/dist/css/bootstrap-theme.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'Portal/bootstrap/dist/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Portal/bootstrap/dist/css/bootstrap-theme.css' %}"/>
 </head>
 <body>
-    <div class="container">
-        This is the index.html file of Portal app.
+
+
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Zinc</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="#">整站抓取 <span class="sr-only">(current)</span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            文字过滤<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">天涯论坛</a></li>
+                            <li><a href="#">百度贴吧</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            数据统计<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">世纪佳缘</a></li>
+                            <li><a href="#">豆瓣电影</a></li>
+                            <li><a href="#">豆瓣书籍</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            拓扑生成<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">人人好友</a></li>
+                            <li><a href="#">微博关注</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            新闻整合<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">电子科技大学</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            价格比较<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">书籍</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">反馈建议</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <div class="jumbotron">
+        <h1>功能列表</h1>
+
+        <p>请选择需要进入的功能模块...</p>
+
+        <div class="row">
+            <div class="col-md-2"><a class="btn btn-primary btn-lg" href="#" role="button">整站抓取</a></div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-expanded="true">
+                        文字过滤
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">天涯论坛</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">百度贴吧</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-expanded="true">
+                        数据统计
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">世纪佳缘</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">豆瓣电影</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">豆瓣书籍</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class=""></p>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-expanded="true">
+                        拓扑生成
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">人人好友</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">微博关注</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-expanded="true">
+                        新闻整合
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">电子科技大学</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                            aria-expanded="true">
+                        价格比较
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">书籍</a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
+
+<script type="text/javascript" src="{% static 'Portal/jquery/dist/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'Portal/bootstrap/dist/js/bootstrap.js' %}"></script>
 </body>
 </html>
