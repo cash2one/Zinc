@@ -1,0 +1,20 @@
+{
+  "name": "Zinc",
+  "version": "0.0.0",
+  "authors": [
+    "Trotyl Yu <yzj1995@vip.qq.com>"
+  ],
+  "description": "A simple python-based web spider for the P2P project of UESTC.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Portal/static/Portal",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2"
+  }
+}
