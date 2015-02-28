@@ -6,6 +6,12 @@ from urllib import request
 class BaiduFilter:
 
     def __init__(self, url):
+        if url == '':
+            return
+        if url.isdigit:
+            url = 'http://tieba.baidu.com/p/' + url
+        if not url.startswith('http'):
+            url = 'http://' + url
         self.url = url + '?see_lz=1'
         self.count = 0
         self.title = ''

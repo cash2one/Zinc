@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Portal.helpers.loop_requester import LoopSpider
+from Portal.helpers.topic_filter import BaiduFilter
 from Portal.helpers.zip_dir import zip_dir
 from django.http import HttpResponse
 
@@ -21,7 +22,6 @@ def loop(request):
 
 
 def loop_zip(request):
-    print('hehe')
     address = request.GET['address']
     dir_name = 'download/' + address
     file_name = 'zip/' + address + '.zip'
@@ -31,3 +31,13 @@ def loop_zip(request):
     response['Content-Disposition'] = 'attachment; filename=' + address + '.zip'
     response.write(file)
     return response
+
+
+def baidu(request):
+    if request.method == 'GET':
+        return render(request, 'Portal/baidu_filter.html')
+    elif request.method == 'POST':
+        address = request.POST['address']
+        baidu = BaiduFilter(address)
+        topics = baidu.start()
+        return render(request, 'Portal/baidu_filter.html', {'address': address, 'result_list': topics})
