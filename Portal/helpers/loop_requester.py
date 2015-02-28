@@ -46,6 +46,8 @@ def get_full_url(url, current=''):
         return url
     if url == '/':
         return get_host(current)
+    if url.startswith('#'):
+        return get_parent(current)
     if url.startswith('//'):
         return 'http:' + url
     if url.startswith('/'):
@@ -126,6 +128,6 @@ class LoopSpider:
             url = get_full_url(link, current)
             if not get_host(url) == self.host:
                 continue
-            if not url in self.record:
+            if not url in self.record and not url in self.queue:
                 self.queue.append(url)
 

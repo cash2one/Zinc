@@ -3,4 +3,4 @@ Portal/static/Portal
 *.pyc
 __pycache__
 download/
-*.zip
+zip/
