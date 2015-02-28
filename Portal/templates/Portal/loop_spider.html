@@ -10,11 +10,12 @@
             <label class="sr-only" for="exampleInputAmount">地址：</label>
 
             <div class="input-group">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" name="address" id="address" placeholder="www.zhihu.com">
+                <div class="input-group-addon">@</div>
+                <input type="text" class="form-control" name="address" id="address" placeholder="www.zhihu.com" value="{{ address }}">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">开始抓取</button>
+        <a href="/loop_zip?address={{ address | default:'www.zhihu.com' }}" class="btn btn-primary {{ address | default:'disabled' }}">下载压缩包</a>
     </form>
 
     {% if result_list %}

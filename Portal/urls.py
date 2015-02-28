@@ -9,5 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^$', 'Portal.views.home', name='home'),
     url(r'^loop/', 'Portal.views.loop', name='home'),
-
+    url(r'^loop_zip/', 'Portal.views.loop_zip', name='home'),
 )

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Portal.helpers.loop_requester import LoopSpider
+from Portal.helpers.zip_dir import zip_dir
 from django.http import HttpResponse
 
 # Create your views here.
@@ -16,4 +17,17 @@ def loop(request):
         address = request.POST['address']
         spider = LoopSpider(address)
         record = spider.start()
-        return render(request, 'Portal/loop_spider.html', { 'result_list': record })
+        return render(request, 'Portal/loop_spider.html', {'address': address, 'result_list': record})
+
+
+def loop_zip(request):
+    print('hehe')
+    address = request.GET['address']
+    dir_name = 'download/' + address
+    file_name = 'zip/' + address + '.zip'
+    zip_dir(dir_name, file_name)
+    file = open(file_name, 'rb').read()
+    response = HttpResponse()
+    response['Content-Disposition'] = 'attachment; filename=' + address + '.zip'
+    response.write(file)
+    return response
