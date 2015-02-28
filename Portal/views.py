@@ -38,6 +38,6 @@ def baidu(request):
         return render(request, 'Portal/baidu_filter.html')
     elif request.method == 'POST':
         address = request.POST['address']
-        baidu = BaiduFilter(address)
-        topics = baidu.start()
-        return render(request, 'Portal/baidu_filter.html', {'address': address, 'result_list': topics})
+        baidu_filter = BaiduFilter(address)
+        title, topics = baidu_filter.start()
+        return render(request, 'Portal/baidu_filter.html', {'address': address, 'title': title, 'result_list': topics})

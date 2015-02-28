@@ -1,6 +1,6 @@
 from django.test import TestCase
 from Portal.helpers.loop_requester import LoopSpider
-from Portal.helpers.topic_filter import BaiduFilter
+from Portal.helpers.topic_filter import BaiduFilter, TianyaFilter
 
 
 class LoopSpiderTestCase(TestCase):
@@ -91,6 +91,18 @@ class BaiduFilterTestCase(TestCase):
         pass
 
     def test_filter_state(self):
-        baidu = BaiduFilter('http://tieba.baidu.com/p/3506527161')
-        topic = baidu.start()
-        self.assertGreaterEqual(len(topic), 53)
+        baidu = BaiduFilter('3506527161')
+        title, topics = baidu.start()
+        self.assertEqual(title, '深夜失眠说说我的初恋')
+        self.assertGreaterEqual(len(topics), 53)
+
+
+class TianyaFilterTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_filter_state(self):
+        tianya = TianyaFilter('http://bbs.tianya.cn/post-funinfo-5342503-1.shtml')
+        title, topics = tianya.start()
+        self.assertEqual(title, '深夜失眠说说我的初恋')
+        self.assertGreaterEqual(len(topics), 53)
