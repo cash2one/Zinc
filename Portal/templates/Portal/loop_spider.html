@@ -11,7 +11,7 @@
 
             <div class="input-group">
                 <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" name="address" id="address" placeholder="trotyl.cc">
+                <input type="text" class="form-control" name="address" id="address" placeholder="www.zhihu.com">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">开始抓取</button>
@@ -25,10 +25,12 @@
             <div class="panel-heading">资源列表</div>
             <div class="panel-body">
                 <ul class="list-group">
-                {% for url in result_list %}
-                    <li class="list-group-item">{{ url }}</li>
-                {% endfor %}
-            </ul>
+                    {% for url in result_list %}
+                        <li class="list-group-item">
+                            <a href="{{ url }}" target="_blank">{{ url }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
 
         </div>
