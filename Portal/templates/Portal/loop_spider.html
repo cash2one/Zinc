@@ -1,0 +1,37 @@
+{% extends "Portal/base.html" %}
+
+{% block content %}
+    <h1>整站抓取</h1>
+
+    <p>请输入需要抓去站点的起始页...</p>
+
+    <form class="form-inline" method="post"> {% csrf_token %}
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">地址：</label>
+
+            <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" class="form-control" name="address" id="address" placeholder="trotyl.cc">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">开始抓取</button>
+    </form>
+
+    {% if result_list %}
+        <p></p>
+        <p></p>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">资源列表</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                {% for url in result_list %}
+                    <li class="list-group-item">{{ url }}</li>
+                {% endfor %}
+            </ul>
+            </div>
+
+        </div>
+    {% endif %}
+
+{% endblock %}

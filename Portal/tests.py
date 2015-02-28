@@ -71,7 +71,7 @@ class LoopSpiderTestCase(TestCase):
         url = 'https://raw.githubusercontent.com/trotyl/Static/master/fake_baidu.html'
         data, sth = get_data(url)
         url_list = get_list(data)
-        self.assertEqual(len(url_list), 127)
+        self.assertEqual(len(url_list), 126)
 
     def test_get_list_of_url_zero(self):
         url = 'https://raw.githubusercontent.com/trotyl/Static/master/empty.html'
@@ -81,5 +81,5 @@ class LoopSpiderTestCase(TestCase):
 
     def test_loop_state(self):
         spider = LoopSpider('https://raw.githubusercontent.com/trotyl/Static/master/index.html')
-        counter = spider.start()
-        self.assertEqual(counter, 5)
+        record = spider.start()
+        self.assertEqual(len(record), 5)

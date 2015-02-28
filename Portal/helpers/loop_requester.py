@@ -23,7 +23,7 @@ def mkdir(path):
 
 
 def get_host(url):
-    match = re.match('http[s]?://([^/"]+)', url)
+    match = re.match('http[s]?://([^/"\']+)', url)
     if match:
         return match.group(0)
     return ''
@@ -44,6 +44,10 @@ def get_parent(url):
 def get_full_url(url, current=''):
     if url.startswith('http'):
         return url
+    if url == '/':
+        return get_host(current)
+    if url.startswith('//'):
+        return 'http:' + url
     if url.startswith('/'):
         return get_host(current) + url
     else:
@@ -62,9 +66,12 @@ def get_data(url):
 
 
 def get_list(data):
-    data = data.decode('UTF-8')
-    url_list = re.findall('(?:href|src)=\"(.*?)\"', data)
-    return list(set(url_list))
+    try:
+        data = data.decode('UTF-8')
+        url_list = re.findall('(?:href|src)=\"([^\'\"]+)\"', data)
+        return list(set(url_list))
+    except UnicodeDecodeError:
+        return []
 
 
 def save_data(data, url):
@@ -72,6 +79,8 @@ def save_data(data, url):
         return
     if url.endswith('/'):
         url += 'index.html'
+    elif url == get_host(url):
+        url += '/index.html'
     elif url.rfind('.') < url.rfind('/'):
         url += '.html'
     idxl = url.find('://')
@@ -84,10 +93,6 @@ def save_data(data, url):
 
 
 class LoopSpider:
-    host = ''
-    counter = 0
-    record = set()
-    queue = deque([])
 
     def __init__(self, start_page):
         if not start_page.startswith('http'):
@@ -96,29 +101,29 @@ class LoopSpider:
         if host == '':
             return
         self.host = host
+        self.record = set()
+        self.queue = deque([])
         self.queue.append(start_page)
 
     def start(self):
         if self.host == '':
-            return -1
-        while len(self.queue) != 0 and self.counter < 10000:
+            return set()
+        while len(self.queue) != 0 and len(self.record) < 20:
             current = self.queue.popleft()
-            self.record.add(current)
             data, url = get_data(current)
-            if not data:
+            if not data or url in self.record:
                 continue
+            self.record.add(url)
             save_data(data, url)
-            self.counter += 1
             url_list = get_list(data)
             self.append_queue(url_list, current)
-        return self.counter
+        return self.record
 
     def append_queue(self, url_list, current):
         for link in url_list:
             url = get_full_url(link, current)
             if not get_host(url) == self.host:
-                return
+                continue
             if not url in self.record:
                 self.queue.append(url)
-                self.record.add(url)
 
