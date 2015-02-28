@@ -80,7 +80,6 @@ class LoopSpiderTestCase(TestCase):
         self.assertEqual(url_list, [])
 
     def test_loop_state(self):
-        # spider = LoopSpider('https://raw.githubusercontent.com/trotyl/Static/master/index.html')
-        # counter = spider.start()
-        # self.assertEqual(counter, 5)
-        pass
+        spider = LoopSpider('https://raw.githubusercontent.com/trotyl/Static/master/index.html')
+        counter = spider.start()
+        self.assertEqual(counter, 5)

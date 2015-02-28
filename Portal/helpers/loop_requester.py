@@ -77,15 +77,15 @@ def save_data(data, url):
     idxl = url.find('://')
     idxr = url.rfind('/')
     path = url[idxl + 3: idxr]
-    print(path)
     mkdir('download/' + path)
-    file = open(url[idxl + 3:], 'wb')
+    file = open('download/' + url[idxl + 3:], 'wb')
     file.write(data)
     file.close()
 
 
 class LoopSpider:
     host = ''
+    counter = 0
     record = set()
     queue = deque([])
 
@@ -97,27 +97,28 @@ class LoopSpider:
             return
         self.host = host
         self.queue.append(start_page)
-        self.start()
 
     def start(self):
         if self.host == '':
-            return
-        counter = 0
-        while len(self.queue) != 0 and counter < 10000:
-            counter += 1
+            return -1
+        while len(self.queue) != 0 and self.counter < 10000:
             current = self.queue.popleft()
             self.record.add(current)
             data, url = get_data(current)
             if not data:
-                return
+                continue
             save_data(data, url)
+            self.counter += 1
             url_list = get_list(data)
             self.append_queue(url_list, current)
-        return counter
+        return self.counter
 
     def append_queue(self, url_list, current):
         for link in url_list:
             url = get_full_url(link, current)
-            self.queue.append(url)
-
+            if not get_host(url) == self.host:
+                return
+            if not url in self.record:
+                self.queue.append(url)
+                self.record.add(url)
 

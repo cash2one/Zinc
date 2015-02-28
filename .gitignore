@@ -1,2 +1,5 @@
 .idea
 Portal/static/Portal
+*.pyc
+__pycache__
+download/
