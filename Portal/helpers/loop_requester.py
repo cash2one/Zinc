@@ -77,6 +77,8 @@ def get_list(data):
 def save_data(data, url):
     if not url.startswith('http'):
         return
+    if url.startswith('#'):
+        return
     if url.endswith('/'):
         url += 'index.html'
     elif url == get_host(url):

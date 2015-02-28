@@ -3,7 +3,14 @@ import os.path
 import zipfile
 
 
+def mkdir():
+    exists = os.path.exists('zip')
+    if not exists:
+        os.makedirs('zip')
+
+
 def zip_dir(dir_name, zipfilename):
+    mkdir()
     file_list = []
     if os.path.isfile(dir_name):
         file_list.append(dir_name)
