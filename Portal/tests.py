@@ -102,7 +102,7 @@ class TianyaFilterTestCase(TestCase):
         pass
 
     def test_filter_state(self):
-        tianya = TianyaFilter('http://bbs.tianya.cn/post-funinfo-6202157-1.shtml')
+        tianya = TianyaFilter('http://bbs.tianya.cn/post-394-129735-1.shtml')
         title, topics = tianya.start()
-        self.assertEqual(title, '郑爽的颜值在90后小花里绝对拔尖，不服来辩!')
-        self.assertGreaterEqual(len(topics), 47)
+        self.assertEqual(title, '异地恋的姐妹们，进来聊聊我们苦逼的生活。')
+        self.assertGreaterEqual(len(topics), 62)

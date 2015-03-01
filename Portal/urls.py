@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^loop/', 'Portal.views.loop', name='home'),
     url(r'^loop_zip/', 'Portal.views.loop_zip', name='home'),
     url(r'^baidu/', 'Portal.views.baidu', name='home'),
+    url(r'^tianya/', 'Portal.views.tianya', name='home'),
 )

@@ -1,0 +1,40 @@
+{% extends "Portal/base.html" %}
+
+{% block content %}
+    <h1 xmlns="http://www.w3.org/1999/html">{{ type }}主题贴过滤</h1>
+
+    <p>请输入需要过滤的{{ type }}地址或主题贴ID...</p>
+
+    <form class="" method="post"> {% csrf_token %}
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">地址：</label>
+
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">@</span>
+                <input type="text" class="form-control" name="address" id="address"
+                       placeholder="{{ holder }}" value="{{ address }}"></div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">获取主题贴</button>
+    </form>
+
+    {% if result_list %}
+        <p></p>
+        <p></p>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{ title }}</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    {% for data in result_list %}
+                        <li class="list-group-item">
+                            {{ data | safe }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    {% endif %}
+
+{% endblock %}

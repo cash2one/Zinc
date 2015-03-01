@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from Portal.helpers.loop_requester import LoopSpider
-from Portal.helpers.topic_filter import BaiduFilter
+from Portal.helpers.topic_filter import BaiduFilter, TianyaFilter
 from Portal.helpers.zip_dir import zip_dir
 from django.http import HttpResponse
 
@@ -35,9 +35,19 @@ def loop_zip(request):
 
 def baidu(request):
     if request.method == 'GET':
-        return render(request, 'Portal/baidu_filter.html')
+        return render(request, 'Portal/topic_filter.html', {'type': '百度贴吧', 'holder': 'tieba.baidu.com/p/3506527161'})
     elif request.method == 'POST':
         address = request.POST['address']
         baidu_filter = BaiduFilter(address)
         title, topics = baidu_filter.start()
-        return render(request, 'Portal/baidu_filter.html', {'address': address, 'title': title, 'result_list': topics})
+        return render(request, 'Portal/topic_filter.html', {'type': '百度贴吧', 'address': address, 'title': title, 'result_list': topics})
+
+
+def tianya(request):
+    if request.method == 'GET':
+        return render(request, 'Portal/topic_filter.html', {'type': '天涯论坛', 'holder': 'http://bbs.tianya.cn/post-394-129735-1.shtml'})
+    elif request.method == 'POST':
+        address = request.POST['address']
+        tianya_filter = TianyaFilter(address)
+        title, topics = tianya_filter.start()
+        return render(request, 'Portal/topic_filter.html', {'type': '天涯论坛', 'address': address, 'title': title, 'result_list': topics})
