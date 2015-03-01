@@ -110,7 +110,7 @@ class TianyaFilter:
         return self.filter_data(page)
 
     def filter_data(self, page):
-        items = re.findall('<div.*?>楼主</div>(.*?)<div.*?>', page)
+        items = re.findall('<strong class="host">楼主[\s\S]+?<div class="bbs-content">\s+(.*?)\s+</div>', page)
         return items
 
     def get_data(self, url):
