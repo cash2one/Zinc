@@ -12,7 +12,7 @@ from collections import deque
 
 class JiayuanSearcher:
     def __init__(self):
-        self.host = 'http://search.jiayuan.com/v2/index.php?key='
+        self.host = 'http://search.jiayuan.com/v2/search_v2.php?key='
         self.record = set()
         self.queue = deque([])
         self.conditions = {'stc': {}}

@@ -122,4 +122,8 @@ class JiayuanSearcherTestCase(TestCase):
 
     def test_searcher_state(self):
         jiayuan = JiayuanSearcher()
-        pass
+        jiayuan.login('yzj1995@vip.qq.com', '16777216')
+        jiayuan.conditions['sex'] = 'f'
+        res = jiayuan.start()
+        match = re.search('"isLogin":true', res)
+        self.assertTrue(match)
