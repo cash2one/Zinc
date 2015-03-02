@@ -67,56 +67,17 @@ class JiayuanHelper:
     def set_sex(self, sex):
         self.searcher.conditions['sex'] = sex
 
-    def set_region(self, region=''):
-        if region == '' and 1 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][1]
-            return
-        self.searcher.conditions['stc'][1] = region
+    def set_value(self, index, value1, value2=None):
+        if value1 == 0 and index in self.searcher.conditions['stc']:
+            del self.searcher.conditions['stc'][index]
+            return False
 
-    def set_age(self, start=0, end=0):
-        if start == 0 and 2 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][2]
-            return
-        age = '{0}.{1}'.format(start, end)
-        self.searcher.conditions['stc'][2] = age
+        if not value2:
+            value2 = 0
 
-    def set_height(self, start=0, end=0):
-        if start == 0 and 3 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][3]
-            return
-        height = '{0}.{1}'.format(start, end)
-        self.searcher.conditions['stc'][3] = height
-
-    def set_education(self, education=0, above=0):
-        if education == 0 and 4 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][4]
-            return
-        height = '{0}.{1}'.format(education, above)
-        self.searcher.conditions['stc'][4] = height
-
-    def set_income(self, income=0, above=0):
-        if income == 0 and 5 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][5]
-            return
-        height = '{0}.{1}'.format(income, above)
-        self.searcher.conditions['stc'][5] = height
-
-    def set_marriage(self, marriage=0):
-        if marriage == 0 and 6 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][6]
-            return
-        self.searcher.conditions['stc'][6] = marriage
-
-    def set_house(self, house=0):
-        if house == 0 and 7 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][7]
-            return
-        self.searcher.conditions['stc'][7] = house
-
-
-    def set_photo(self, tof=0):
-        if tof == 0 and 23 in self.searcher.conditions['stc']:
-            del self.searcher.conditions['stc'][23]
-            return
-        self.searcher.conditions['stc'][23] = '1'
+        if self.stc_type_dict == 'select_one':
+            self.searcher.conditions['stc'][index] = value1
+        else:
+            res = '{0}.{1}'.format(value1, value2)
+            self.searcher.conditions['stc'][index] = res
 
