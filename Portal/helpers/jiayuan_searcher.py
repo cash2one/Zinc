@@ -88,10 +88,11 @@ class JiayuanHelper:
                               18: 'select_one'}
         self.stc_name_dict = {1: '地区', 2: '年龄', 3: '身高', 4: '教育', 5: '收入', 6: '婚姻', 7: '购房', 8: '购车',
                               13: '子女', 14: '工作', 18: '血型'}
-        self.stc_value_dict = {1: region_dict, 4: education_dict, 5: income_dict, 6: marriage_dict, 7: house_dict,
-                               8: car_dict, 13: children_dict, 14: job_dict, 18: blood_dict}
+        self.stc_value_dict = {1: region_dict, 2: range(18, 61), 3: range(150, 190), 4: education_dict, 5: income_dict,
+                               6: marriage_dict, 7: house_dict, 8: car_dict, 13: children_dict, 14: job_dict,
+                               18: blood_dict}
 
-    def set_sex(self, sex):
+    def set_sex(self, sex=''):
         self.searcher.conditions['sex'] = sex
 
     def set_value(self, index, value1, value2=None):
@@ -107,4 +108,23 @@ class JiayuanHelper:
         else:
             res = '{0}.{1}'.format(value1, value2)
             self.searcher.conditions['stc'][index] = res
+
+    def start_single(self, row):
+        res = self.searcher.start()
+        return self.process_single(res, row)
+
+    def start_double(self, col, row):
+        final = {}
+        for condition in self.stc_value_dict[col]:
+            self.set_value(col, condition)
+            res = self.searcher.start()
+            final[condition] = res
+        return self.process_double(final, row)
+
+    def process_single(self, json, index):
+        pass
+
+    def process_double(self, json_dict, index):
+        pass
+
 
