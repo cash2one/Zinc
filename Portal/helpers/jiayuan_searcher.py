@@ -1,10 +1,11 @@
 import urllib
 import re
+import http.cookiejar
+import urllib.parse
 
 from urllib import request
 from urllib.error import HTTPError
 from collections import deque
-
 
 # Create your models here.
 
@@ -15,6 +16,24 @@ class JiayuanSearcher:
         self.record = set()
         self.queue = deque([])
         self.conditions = {'stc': {}}
+        self.isLogin = False
+
+    def login(self, account, password):
+        cookie = http.cookiejar.CookieJar()  # 保存cookie，为登录后访问其它页面做准备
+        cjhdr = urllib.request.HTTPCookieProcessor(cookie)
+        opener = urllib.request.build_opener(cjhdr)
+        urllib.request.install_opener(opener)
+
+        url = "https://system.netsuite.com/pages/customerlogin.jsp?country=US"
+        data = urllib.parse.urlencode({'name': account, 'password': password, 'remem_pass': 'on', 'ljg_login': '1',
+                                           'channel': '200', 'position': 204})
+        data = data.encode('utf-8')
+        res = urllib.request.urlopen(url, data)
+        print(res.status, res.reason)
+        if res.status != 200:
+            return False
+        print(res.read())
+        return True
 
     def get_params(self):
         params = ''

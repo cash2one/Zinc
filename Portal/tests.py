@@ -1,6 +1,7 @@
 from django.test import TestCase
 from Portal.helpers.loop_requester import LoopSpider
 from Portal.helpers.topic_filter import BaiduFilter, TianyaFilter
+from Portal.helpers.jiayuan_searcher import JiayuanSearcher, JiayuanHelper
 
 
 class LoopSpiderTestCase(TestCase):
@@ -106,3 +107,16 @@ class TianyaFilterTestCase(TestCase):
         title, topics = tianya.start()
         self.assertEqual(title, '异地恋的姐妹们，进来聊聊我们苦逼的生活。')
         self.assertGreaterEqual(len(topics), 62)
+
+
+class JiayuanSearcherTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_login(self):
+        jiayuan = JiayuanSearcher()
+        res = jiayuan.login('yzj1995@vip.qq.com', 'yzj19950107')
+        self.assertTrue(res)
+
+    def test_searcher_state(self):
+        pass
