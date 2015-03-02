@@ -1,3 +1,4 @@
+import re
 from django.test import TestCase
 from Portal.helpers.loop_requester import LoopSpider
 from Portal.helpers.topic_filter import BaiduFilter, TianyaFilter
@@ -115,8 +116,10 @@ class JiayuanSearcherTestCase(TestCase):
 
     def test_login(self):
         jiayuan = JiayuanSearcher()
-        res = jiayuan.login('yzj1995@vip.qq.com', 'yzj19950107')
-        self.assertTrue(res)
+        res = jiayuan.login('yzj1995@vip.qq.com', '16777216')
+        match = re.search('top\.location\.href', res)
+        self.assertTrue(match)
 
     def test_searcher_state(self):
+        jiayuan = JiayuanSearcher()
         pass

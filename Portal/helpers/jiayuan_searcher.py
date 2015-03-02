@@ -24,16 +24,14 @@ class JiayuanSearcher:
         opener = urllib.request.build_opener(cjhdr)
         urllib.request.install_opener(opener)
 
-        url = "https://system.netsuite.com/pages/customerlogin.jsp?country=US"
+        url = "https://passport.jiayuan.com/dologin.php"
         data = urllib.parse.urlencode({'name': account, 'password': password, 'remem_pass': 'on', 'ljg_login': '1',
                                            'channel': '200', 'position': 204})
         data = data.encode('utf-8')
         res = urllib.request.urlopen(url, data)
-        print(res.status, res.reason)
         if res.status != 200:
-            return False
-        print(res.read())
-        return True
+            return ''
+        return res.read().decode('utf-8')
 
     def get_params(self):
         params = ''
@@ -48,7 +46,17 @@ class JiayuanSearcher:
         return params
 
     def start(self):
-        pass
+        url = self.host + self.get_params()
+        res = self.get_data_unicode(url)
+        return res
+
+    def get_data(self, url):
+        data = request.urlopen(url).read()
+        return data
+
+    def get_data_unicode(self, url):
+        data = self.get_data(url)
+        return data.decode('utf-8')
 
 
 class JiayuanHelper:
