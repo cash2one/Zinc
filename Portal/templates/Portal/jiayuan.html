@@ -1,0 +1,179 @@
+{% extends "Portal/base.html" %}
+
+{% block content %}
+    <h1 xmlns="http://www.w3.org/1999/html">世纪佳缘数据统计</h1>
+
+    <p></p>
+
+    {% if data != None %}
+        <canvas id="myChart" width="400" height="400"></canvas>
+    {% endif %}
+
+    <p>请选择需要需要分析的用户范围和目标数据项...</p>
+
+    <form class="" method="post"> {% csrf_token %}
+        <div class="form-group">
+            <label for="sex">性别：</label>
+            <select name="sex" id="sex" class="form-control">
+                {% for key, value in sex_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="region">地区：</label>
+            <select name="1" id="region" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in region_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="age_from">年龄：</label>
+            <select name="age_from" id="age_from" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key in age_range %}
+                    <option value="{{ key }}">{{ key }}</option>
+                {% endfor %}
+            </select>
+            <label for="age_to">到：</label>
+            <select name="age_to" id="age_to" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key in age_range %}
+                    <option value="{{ key }}">{{ key }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="height_from">身高：</label>
+            <select name="height_from" id="height_from" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key in height_range %}
+                    <option value="{{ key }}">{{ key }}</option>
+                {% endfor %}
+            </select>
+            <label for="height_to">到：</label>
+            <select name="height_to" id="height_to" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key in height_range %}
+                    <option value="{{ key }}">{{ key }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="education">教育：</label>
+            <select name="4" id="education" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in education_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="income">收入：</label>
+            <select name="5" id="income" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in income_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="marriage">婚姻：</label>
+            <select name="6" id="marriage" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in marriage_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="house">购房：</label>
+            <select name="7" id="house" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in house_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="car">购车：</label>
+            <select name="8" id="car" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in car_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="children">子女：</label>
+            <select name="13" id="children" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in children_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="job">工作：</label>
+            <select name="14" id="job" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in job_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="blood">血型：</label>
+            <select name="18" id="blood" class="form-control">
+                <option value="0" selected>不限</option>
+                {% for key, value in blood_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="item">分析项：</label>
+            <select name="item" id="item" class="form-control">
+                {% for key, value in scope_dict.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">获取分析结果</button>
+    </form>
+
+
+
+{% endblock %}
+
+{% block addition %}
+    {% if data != None %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var labels = {{ labels }};
+                var data = {{ data }};
+                var total = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "My First dataset",
+                            fillColor: "rgba(151,187,205,0.5)",
+                            strokeColor: "rgba(151,187,205,0.8)",
+                            highlightFill: "rgba(151,187,205,0.75)",
+                            highlightStroke: "rgba(151,187,205,1)",
+                            data: data
+                        }
+                    ]
+                };
+                var ctx = $("#myChart").get(0).getContext("2d");
+                var myBarChart = new Chart(ctx).Bar(total);
+                myBarChart.update();
+            })
+        </script>
+    {% endif %}
+
+{% endblock %}
