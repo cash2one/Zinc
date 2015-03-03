@@ -115,8 +115,9 @@ class JiayuanHelper:
         return self.process_single(res, row)
 
     def get_data_of_json(self, string):
-        index = string.find('{')
-        string = string[index:]
+        idxl = string.find('{')
+        idxr = string.rfind('}')
+        string = string[idxl: idxr + 1]
         obj = json.loads(string)
         return obj['userInfo']
 

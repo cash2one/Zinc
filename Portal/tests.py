@@ -127,3 +127,27 @@ class JiayuanSearcherTestCase(TestCase):
         res = jiayuan.start()
         match = re.search('"isLogin":true', res)
         self.assertTrue(match)
+
+
+class JiayuanHelperTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_get_data_of_json(self):
+        json_string = '##jiayser##{"isLogin":true,"count":30254,"pageTotal":1211,"userInfo":' \
+                      '[{"uid":132917123,"realUid":133917123,"nickname":"","sex":"","sexValue":"f",' \
+                      '"randAttr":"formal","marriage":"","height":"160","education":"","income":null,' \
+                      '"work_location":"","work_sublocation":"","age":18,"image":"","count":"30254","online":0,' \
+                      '"randTag":"","randListTag":"","userIcon":"","helloUrl":"","sendMsgUrl":"","shortnote":"",' \
+                      '"matchCondition":""},' \
+                      '{"uid":132825533,"realUid":133825533,"nickname":"","sex":"","sexValue":"f",' \
+                      '"randAttr":"formal","marriage":"","height":"165","education":"","income":null,' \
+                      '"work_location":"","work_sublocation":"","age":18,"image":"","count":"30254","online":1,' \
+                      '"randTag":"","randListTag":"","userIcon":"","helloUrl":"","sendMsgUrl":"","shortnote":"",' \
+                      '"matchCondition":""}],' \
+                      '"condi":{"age":{"min":"18","max":"20"},"nation":["1"]}}##jiayser##//'
+        jiayuan = JiayuanSearcher()
+        helper = JiayuanHelper(jiayuan)
+        res = helper.get_data_of_json(json_string)
+        self.assertEqual(len(res), 2)
+        self.assertEqual(res[0]['uid'], 132917123)
