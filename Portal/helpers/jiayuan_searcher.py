@@ -2,6 +2,7 @@ import urllib
 import re
 import http.cookiejar
 import urllib.parse
+import json
 
 from urllib import request
 from urllib.error import HTTPError
@@ -113,18 +114,28 @@ class JiayuanHelper:
         res = self.searcher.start()
         return self.process_single(res, row)
 
-    def start_double(self, col, row):
-        final = {}
-        for condition in self.stc_value_dict[col]:
-            self.set_value(col, condition)
-            res = self.searcher.start()
-            final[condition] = res
-        return self.process_double(final, row)
+    def get_data_of_json(self, string):
+        index = string.find('{')
+        string = string[index:]
+        obj = json.loads(string)
+        return obj['userInfo']
 
-    def process_single(self, json, index):
-        pass
+    def process_single(self, json_string, index):
+        user_list = self.get_data_of_json(json_string)
+        attr_dict = {2: 'age', 3: 'height', 4: 'education', 6: 'marriage'}
+        count_dict = {}
+        if not index in attr_dict:
+            return
+        attr_name = attr_dict[index]
+        for user in user_list:
+            val = user[attr_name]
+            if not val in count_dict:
+                count_dict[val] = 0
+            else:
+                count_dict[val] += 1
+        return count_dict
 
-    def process_double(self, json_dict, index):
+    def generate_data(self, count_dict):
         pass
 
 
