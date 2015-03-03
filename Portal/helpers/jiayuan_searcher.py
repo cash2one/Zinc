@@ -27,7 +27,7 @@ class JiayuanSearcher:
 
         url = "https://passport.jiayuan.com/dologin.php"
         data = urllib.parse.urlencode({'name': account, 'password': password, 'remem_pass': 'on', 'ljg_login': '1',
-                                           'channel': '200', 'position': 204})
+                                       'channel': '200', 'position': 204})
         data = data.encode('utf-8')
         res = urllib.request.urlopen(url, data)
         if res.status != 200:
@@ -136,6 +136,11 @@ class JiayuanHelper:
         return count_dict
 
     def generate_data(self, count_dict):
-        pass
-
-
+        labels = count_dict.keys()
+        datasets = [{'label': 'Dataset',
+                     'fillColor': 'rgba(220,220,220,0.5)',
+                     'strokeColor': "rgba(220,220,220,0.8)",
+                     'highlightFill': "rgba(220,220,220,0.75)",
+                     'highlightStroke': "rgba(220,220,220,1)",
+                     'data': count_dict.values()}]
+        return {'labels': labels, 'datasets': datasets}
