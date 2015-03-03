@@ -112,7 +112,7 @@ class JiayuanHelper:
 
     def start_single(self, row):
         res = self.searcher.start()
-        return self.process_single(res, row)
+        return self.process_single(self.get_data_of_json(res), row)
 
     def get_data_of_json(self, string):
         idxl = string.find('{')
@@ -121,8 +121,7 @@ class JiayuanHelper:
         obj = json.loads(string)
         return obj['userInfo']
 
-    def process_single(self, json_string, index):
-        user_list = self.get_data_of_json(json_string)
+    def process_single(self, user_list, index):
         attr_dict = {2: 'age', 3: 'height', 4: 'education', 6: 'marriage'}
         count_dict = {}
         if not index in attr_dict:
@@ -131,7 +130,7 @@ class JiayuanHelper:
         for user in user_list:
             val = user[attr_name]
             if not val in count_dict:
-                count_dict[val] = 0
+                count_dict[val] = 1
             else:
                 count_dict[val] += 1
         return count_dict
