@@ -136,11 +136,18 @@ class JiayuanHelper:
         return count_dict
 
     def generate_data(self, count_dict):
-        labels = count_dict.keys()
+        tempSet = set()
+        labels = []
+        data = []
+        for key in count_dict:
+            tempSet.add(key)
+        for key in tempSet:
+            labels.append(key)
+            data.append(count_dict[key])
         datasets = [{'label': 'Dataset',
                      'fillColor': 'rgba(220,220,220,0.5)',
                      'strokeColor': "rgba(220,220,220,0.8)",
                      'highlightFill': "rgba(220,220,220,0.75)",
                      'highlightStroke': "rgba(220,220,220,1)",
-                     'data': count_dict.values()}]
+                     'data': data}]
         return {'labels': labels, 'datasets': datasets}

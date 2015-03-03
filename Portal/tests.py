@@ -1,3 +1,4 @@
+import json
 import re
 from django.test import TestCase
 from Portal.helpers.loop_requester import LoopSpider
@@ -165,3 +166,9 @@ class JiayuanHelperTestCase(TestCase):
         res = self.helper.process_single(list_data, 3)
         self.assertEqual(len(res), 2)
         self.assertEqual(res['160'], 1)
+
+    def test_generate_data(self):
+        count_dict = {'150': 123, '160': 135, '170': 147, '180': 64}
+        res = self.helper.generate_data(count_dict)
+        self.assertEqual(len(res['labels']), 4)
+        self.assertEqual(len(res['datasets'][0]['data']), 4)
